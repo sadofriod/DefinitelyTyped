@@ -1,7 +1,7 @@
 import BaseComponent from './base-component';
 
 declare class ScrollSpy extends BaseComponent {
-    constructor(element: Element, options?: Partial<ScrollSpy.Options>);
+    constructor(element: string | Element, options?: Partial<ScrollSpy.Options>);
 
     /**
      * When using scrollspy in conjunction with adding or removing of
@@ -16,6 +16,8 @@ declare class ScrollSpy extends BaseComponent {
      */
     static getInstance(element: Element, options?: Partial<ScrollSpy.Options>): ScrollSpy;
 
+    static jQueryInterface: ScrollSpy.jQueryInterface;
+
     // static NAME: 'scrollspy';
 
     /**
@@ -23,7 +25,7 @@ declare class ScrollSpy extends BaseComponent {
      *
      * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
      */
-    static Default: Record<string, any>;
+    static Default: ScrollSpy.Options;
 }
 
 declare namespace ScrollSpy {

@@ -3,7 +3,7 @@
 import BaseComponent from './base-component';
 
 declare class Collapse extends BaseComponent {
-    constructor(element: Element, options?: Partial<Collapse.Options>);
+    constructor(element: string | Element, options?: Partial<Collapse.Options>);
 
     /**
      * Toggles a collapsible element to shown or hidden. Returns to the caller
@@ -32,6 +32,8 @@ declare class Collapse extends BaseComponent {
      */
     static getInstance(element: Element, options?: Partial<Collapse.Options>): Collapse;
 
+    static jQueryInterface: Collapse.jQueryInterface;
+
     // static NAME: 'collapse';
 
     /**
@@ -39,7 +41,7 @@ declare class Collapse extends BaseComponent {
      *
      * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
      */
-    static Default: Record<string, any>;
+    static Default: Collapse.Options;
 }
 
 declare namespace Collapse {

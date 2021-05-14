@@ -3,6 +3,7 @@ import webpack = require('webpack');
 import webpackDevMiddleware = require('webpack-dev-middleware');
 
 const compiler = webpack({});
+const multiCompiler = webpack([{}]);
 const compilerWithPublicPath = webpack({
     output: {
         publicPath: '/assets/',
@@ -11,6 +12,8 @@ const compilerWithPublicPath = webpack({
 
 // options
 let webpackDevMiddlewareInstance = webpackDevMiddleware(compiler);
+
+webpackDevMiddlewareInstance = webpackDevMiddleware(multiCompiler);
 
 webpackDevMiddlewareInstance = webpackDevMiddleware(compilerWithPublicPath, {});
 
@@ -28,6 +31,17 @@ webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
     stats: 'errors-only',
     outputFileSystem: compiler.outputFileSystem,
     index: 'index.html',
+});
+
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+    writeToDisk: () => false,
+    stats: true,
+});
+
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+    stats: {
+        all: true,
+    },
 });
 
 // return value
@@ -66,3 +80,15 @@ function bar(_: webpack.Watching) {}
 if (webpackDevMiddlewareInstance.context.watching) {
     bar(webpackDevMiddlewareInstance.context.watching);
 }
+
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+    headers: () => {
+        return { "X-nonsense-1": "yes", "X-nonsense-2": "no" };
+    },
+});
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+    headers: (req, res) => {
+        res.setHeader("X-nonsense-1", "yes");
+        res.setHeader("X-nonsense-2", "no");
+    },
+});

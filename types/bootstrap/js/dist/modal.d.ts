@@ -1,7 +1,7 @@
 import BaseComponent from './base-component';
 
 declare class Modal extends BaseComponent {
-    constructor(element: Element, options?: Partial<Modal.Options>);
+    constructor(element: string | Element, options?: Partial<Modal.Options>);
 
     /**
      * Manually toggles a modal. Returns to the caller before the modal has
@@ -34,6 +34,8 @@ declare class Modal extends BaseComponent {
      */
     static getInstance(element: Element, options?: Partial<Modal.Options>): Modal;
 
+    static jQueryInterface: Modal.jQueryInterface;
+
     // static NAME: 'modal';
 
     /**
@@ -41,7 +43,7 @@ declare class Modal extends BaseComponent {
      *
      * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
      */
-    static Default: Record<string, any>;
+    static Default: Modal.Options;
 }
 
 declare namespace Modal {
